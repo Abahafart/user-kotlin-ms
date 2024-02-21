@@ -8,7 +8,5 @@ import org.springframework.stereotype.Service
 @Service
 class StatusServiceImpl(val statusRepository: StatusRepository): StatusService {
     override fun create(status: Status) = statusRepository.saveStatus(status)
-    override fun getById(id: String): Status {
-        TODO("Not yet implemented")
-    }
+    override fun getById(id: String) = statusRepository.getById(id)
 }
