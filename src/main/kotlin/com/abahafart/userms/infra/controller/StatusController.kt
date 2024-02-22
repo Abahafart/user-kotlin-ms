@@ -4,7 +4,10 @@ import com.abahafart.userms.domain.model.Status
 import com.abahafart.userms.domain.service.StatusService
 import com.abahafart.userms.infra.controller.request.StatusRequest
 import com.abahafart.userms.infra.controller.response.StatusResponse
+import com.abahafart.userms.infra.service.GetAuthentication
+import com.abahafart.userms.infra.service.MoviesConnection
 import mu.KotlinLogging
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/status")
-class StatusController(val statusService: StatusService) {
+class StatusController(val statusService: StatusService, val moviesConnection: GetAuthentication) {
 
     private val logger = KotlinLogging.logger {}
 
@@ -28,6 +31,7 @@ class StatusController(val statusService: StatusService) {
     @GetMapping("/{id}")
     fun getById(@PathVariable id: String): StatusResponse {
         logger.info { "id $id received" }
+        moviesConnection.authenticate()
         return buildResponse(statusService.getById(id))
     }
 
