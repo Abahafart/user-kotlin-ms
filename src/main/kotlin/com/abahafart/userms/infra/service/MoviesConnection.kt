@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
+import org.springframework.web.client.RestTemplate
 
 @Configuration
 @ConfigurationProperties(prefix = "tv")
@@ -21,8 +22,8 @@ interface GetAuthentication {
 }
 
 @Service
-class MoviesConnection(val restTemplateBuilder: RestTemplateBuilder, val tvProperties: TvProperties): GetAuthentication {
-    val restTemplate = restTemplateBuilder.build()
+class MoviesConnection(restTemplateBuilder: RestTemplateBuilder, val tvProperties: TvProperties): GetAuthentication {
+    val restTemplate: RestTemplate = restTemplateBuilder.build()
 
     private val log = KotlinLogging.logger {}
     override fun authenticate(): String {
