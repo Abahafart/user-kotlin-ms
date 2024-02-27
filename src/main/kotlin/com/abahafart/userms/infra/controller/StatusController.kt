@@ -1,13 +1,11 @@
 package com.abahafart.userms.infra.controller
 
-import com.abahafart.userms.domain.model.Status
+import com.abahafart.userms.domain.model.StatusDO
 import com.abahafart.userms.domain.service.StatusService
 import com.abahafart.userms.infra.controller.request.StatusRequest
 import com.abahafart.userms.infra.controller.response.StatusResponse
 import com.abahafart.userms.infra.service.GetAuthentication
-import com.abahafart.userms.infra.service.MoviesConnection
 import mu.KotlinLogging
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,8 +21,8 @@ class StatusController(val statusService: StatusService, val moviesConnection: G
 
     @PostMapping
     fun createStatus(@RequestBody request: StatusRequest): StatusResponse {
-        val statusModel = Status(description = request.description, type = request.type)
-        val statusResponse = statusService.create(statusModel)
+        val statusDOModel = StatusDO(description = request.description, type = request.type)
+        val statusResponse = statusService.create(statusDOModel)
         return buildResponse(statusResponse)
     }
 
@@ -35,7 +33,7 @@ class StatusController(val statusService: StatusService, val moviesConnection: G
         return buildResponse(statusService.getById(id))
     }
 
-    fun buildResponse(status: Status): StatusResponse {
-        return StatusResponse(status.id, status.description, status.type, status.createdAt)
+    fun buildResponse(statusDO: StatusDO): StatusResponse {
+        return StatusResponse(statusDO.id, statusDO.description, statusDO.type, statusDO.createdAt)
     }
 }

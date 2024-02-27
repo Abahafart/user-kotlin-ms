@@ -1,8 +1,8 @@
 package com.abahafart.userms.domain.service
 
-import com.abahafart.userms.domain.model.Status
+import com.abahafart.userms.domain.model.StatusDO
 
 interface StatusService {
-    fun create(status: Status): Status
-    fun getById(id: String): Status
+    fun create(statusDO: StatusDO): StatusDO
+    fun getById(id: String): StatusDO
 }
